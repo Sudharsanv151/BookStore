@@ -10,8 +10,8 @@ import Admin from './Components/Admin';
 import About from './Components/About';
 import { AuthProvider, useAuth } from './context/AuthContext.jsx';
 import axios from 'axios';
-export const serverurl=import.meta.env.VITE_server_url;
-export const supabaseimg=import.meta.env.VITE_supabase_img;
+export const serverurl = import.meta.env.VITE_server_url;
+export const supabaseimg = import.meta.env.VITE_supabase_img;
 
 
 function AppContent() {
@@ -24,12 +24,11 @@ function AppContent() {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
-  const {isLogin}=useAuth();
-  // console.log(serverurl);
+  const { isLogin } = useAuth();
 
   useEffect(() => {
     const fetchBooks = async () => {
-      if(isLogin){
+      if (isLogin) {
         try {
           const response = await axios.get(serverurl + "/books", {
             withCredentials: true
@@ -76,22 +75,22 @@ function AppContent() {
   };
 
   return (
-      <div>
-          {!hidebar&&<Navbar onSearch={handleSearch} onCategory={handleCategory} />}
-        <Routes>
-          <Route path='/register' element={<Signup />} />
-          <Route path="/" element={<Signin />} />
-          <Route path='/home' element={isLogin?<Home search={searchTerm} category={selectedCategory} OnCategory={handleCategory} /> : <Navigate to={'/'} />} />
-          <Route path="/cart" element={isLogin?<Cart />:<Navigate to={'/'} />} />
-          <Route path="/about" element={isLogin?<About />:<Navigate to={'/'} />} />
-          <Route path='/admin' element={isLogin?<Admin />:<Navigate to={'/'} />} />
-        </Routes>
-      </div>
+    <div>
+      {!hidebar && <Navbar onSearch={handleSearch} onCategory={handleCategory} />}
+      <Routes>
+        <Route path='/register' element={<Signup />} />
+        <Route path="/" element={<Signin />} />
+        <Route path='/home' element={isLogin ? <Home search={searchTerm} category={selectedCategory} OnCategory={handleCategory} /> : <Navigate to={'/'} />} />
+        <Route path="/cart" element={isLogin ? <Cart /> : <Navigate to={'/'} />} />
+        <Route path="/about" element={isLogin ? <About /> : <Navigate to={'/'} />} />
+        <Route path='/admin' element={isLogin ? <Admin /> : <Navigate to={'/'} />} />
+      </Routes>
+    </div>
   )
 };
 
-function App(){
-  return(
+function App() {
+  return (
     <AuthProvider>
       <AppContent />
     </AuthProvider>

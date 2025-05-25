@@ -23,7 +23,7 @@ const Signup = () => {
       setSuccess('Registration successful!');
       
       setTimeout(() => {
-        navigate('/login');
+        navigate('/home');
       }, 1500);
     } catch (err) {
       if (err.response && err.response.data) {
